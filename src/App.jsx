@@ -14,6 +14,10 @@ import TransactionsScreen from "./admin/TransactionsScreen";
 import ProfileTab from "./mobile/ProfileTab";
 import PaymentTab from "./mobile/PaymentTab";
 import ReservationTab from "./mobile/ReservationTab";
+import MyVehiclesScreen from "./mobile/MyVehiclesScreen";
+import NotificationsScreen from "./mobile/NotificationsScreen";
+import SettingsScreen from "./mobile/SettingsScreen";
+import HelpSupportScreen from "./mobile/HelpSupportScreen";
 import "./App.css";
 
 function App() {
@@ -33,6 +37,10 @@ function App() {
         <Route path="/mobile/profile" element={<ProfileTab />} />
         <Route path="/mobile/payment" element={<PaymentTab />} />
         <Route path="/mobile/reservation" element={<ReservationTab />} />
+        <Route path="/mobile/myvehicles" element={<MyVehiclesScreen />} />
+        <Route path="/mobile/notifications" element={<NotificationsScreen />} />
+        <Route path="/mobile/settings" element={<SettingsScreen />} />
+        <Route path="/mobile/help&support" element={<HelpSupportScreen />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />} />

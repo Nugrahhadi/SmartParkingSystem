@@ -12,6 +12,11 @@ import {
 } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 
+// Import parking images
+import CentralMall from "../images/CentralMall.png";
+import CityPlaza from "../images/CityPlaza.png";
+import StationParking from "../images/StationParking.png";
+
 const ParkingDetailScreen = () => {
   const [selectedTab, setSelectedTab] = useState("slots");
   const { id } = useParams(); // Mengambil parameter ID dari URL
@@ -38,6 +43,8 @@ const ParkingDetailScreen = () => {
         "Disabled Access",
       ],
       contactNumber: "(021) 555-1234",
+      // Add image property for dynamic loading
+      image: "CentralMall.png",
     },
     2: {
       id: 2,
@@ -57,6 +64,8 @@ const ParkingDetailScreen = () => {
         "Car Wash",
       ],
       contactNumber: "(021) 555-5678",
+      // Add image property for dynamic loading
+      image: "CityPlaza.png",
     },
     3: {
       id: 3,
@@ -71,6 +80,8 @@ const ParkingDetailScreen = () => {
       totalSlots: 60,
       features: ["24/7 Security", "Covered Parking", "Motorbike Area"],
       contactNumber: "(021) 555-9012",
+      // Add image property for dynamic loading
+      image: "StationParking.png",
     },
   };
 
@@ -220,6 +231,22 @@ const ParkingDetailScreen = () => {
     );
   };
 
+  // Function to get image path
+  const getImagePath = (imageName) => {
+    try {
+      // Use the imported images directly
+      if (imageName === "CentralMall.png") return CentralMall;
+      if (imageName === "CityPlaza.png") return CityPlaza;
+      if (imageName === "StationParking.png") return StationParking;
+
+      // Fallback if name doesn't match
+      return null;
+    } catch (error) {
+      console.error("Error loading image:", error);
+      return null;
+    }
+  };
+
   // Jika data belum diload, tampilkan loading
   if (!parkingDetails) {
     return (
@@ -235,10 +262,16 @@ const ParkingDetailScreen = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100">
       {/* Header Image */}
-      <div className="relative h-48 bg-blue-600">
+      <div
+        className="relative h-48 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${getImagePath(parkingDetails.image)})`,
+          backgroundColor: "#1e40af", // Fallback if image fails to load
+        }}
+      >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20"></div>
 
-        {/* Navigation - Perbaikan lebar navbar */}
+        {/* Navigation */}
         <div className="absolute inset-x-0 top-0 px-3 pt-4">
           <div className="flex justify-between">
             <button
@@ -259,9 +292,11 @@ const ParkingDetailScreen = () => {
           </div>
         </div>
 
-        {/* Placeholder for image */}
+        {/* Image label - only shows if image fails to load */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-white text-lg font-medium">Parking Image</p>
+          <p className="text-white text-lg font-medium">
+            {parkingDetails.name}
+          </p>
         </div>
       </div>
 
